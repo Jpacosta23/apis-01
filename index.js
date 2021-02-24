@@ -2,6 +2,16 @@ const express=require('express');
 const contacts=require('./phoneList');
 
 const app = express();
+const morgan=require('morgan');
+
+app.use(express.json());    
+
+morgan.token('reqBody',(req)=>{return JSON.stringify(req.body)})
+
+app.use(
+    morgan(':method :url :status :res[content-length] :reqBody - :response-time ms')
+);
+
 
 app.get('/api/persons:',(req,res)=>{
     if(contacts){
@@ -44,24 +54,24 @@ app.delete('/api/persons/:id',(req,res)=>{
     }
 })
 
-app.post('/api/persons/:name/:number',(req,res)=>{
-    const newContact={
-    id:Math.random()*100,
-    name:req.params.name,
-    number:req.params.number 
-    }
+app.post('/api/persons/',(req,res)=>{
+    
+    const newContact=req.body;
+    
+    newContact.id=Math.round(Math.random()*100);
 
     const state=contacts.some(item=>item.name===newContact.name);
     if(state){
         res.status(404).json('name must be unique');
     }
-    else if(newContact.number===null){
+    else if(newContact.number===undefined){
         res.status(404).json('number required');
     }
     else{
-    newContacts=contacts.concat(newContact);
-    res.json(`la nueva lista de contactos es ${JSON.stringify(newContacts)}`);
+    const newContacts=contacts.concat(newContact);
+    res.json(newContacts);
     }
+
 })
 
 
