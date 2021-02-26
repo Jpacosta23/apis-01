@@ -6,19 +6,19 @@ const morgan=require('morgan');
 
 app.use(express.json());    
 
-morgan.token('reqBody',(req)=>{return JSON.stringify(req.body)})
+// morgan.token('reqBody',(req)=>{return JSON.stringify(req.body)})
 
-app.use(
-    morgan(':method :url :status :res[content-length] :reqBody - :response-time ms')
-);
+// app.use(
+//     morgan(':method :url :status :res[content-length] :reqBody - :response-time ms')
+// );
 
 
-app.get('/api/persons:',(req,res)=>{
+app.get('/api/persons',(req,res)=>{
     if(contacts){
         res.json(contacts);
     }
     else{
-        res.status(404);
+        res.status(404);    
     }
 })
 
@@ -74,8 +74,9 @@ app.post('/api/persons/',(req,res)=>{
 
 })
 
+const PORT= process.env.PORT || 3001
 
-app.listen(3001,()=>{
-    console.log('server is running on port 3001');
+app.listen(PORT,()=>{
+    console.log(`server is running on port ${PORT}`);
 })
 
