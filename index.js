@@ -1,10 +1,12 @@
 const express=require('express');
 const contacts=require('./phoneList');
-
+const cors=require('./cors');
 const app = express();
 const morgan=require('morgan');
 
-app.use(express.json());    
+app.use(express.json()); 
+
+app.use(cors());
 
 // morgan.token('reqBody',(req)=>{return JSON.stringify(req.body)})
 
@@ -80,3 +82,12 @@ app.listen(PORT,()=>{
     console.log(`server is running on port ${PORT}`);
 })
 
+(async () => {
+
+    const response = await fetch('https://shrouded-headland-67003.herokuapp.com/api/persons')
+    const users = await response.json() 
+    console.log(users)
+  
+  
+  })()
+  
