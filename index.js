@@ -14,7 +14,6 @@ app.use(cors());
 //     morgan(':method :url :status :res[content-length] :reqBody - :response-time ms')
 // );
 
-
 app.get('/api/persons',(req,res)=>{
     if(contacts){
         res.json(contacts);
@@ -82,12 +81,12 @@ app.listen(PORT,()=>{
     console.log(`server is running on port ${PORT}`);
 })
 
-(async () => {
+    (async () => {
 
-    const response = await fetch('https://shrouded-headland-67003.herokuapp.com/api/persons')
-    const users = await response.json() 
-    console.log(users)
-  
-  
-  })()
-  
+        const response = await fetch('https://shrouded-headland-67003.herokuapp.com/api/persons')
+        const users = await response.json() 
+        console.log(users)
+    
+    
+    })()
+    
