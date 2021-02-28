@@ -1,8 +1,8 @@
 const {Router} = require('express');
-const contacts=require('./../persons/phoneList')
+const contacts=require('../persons/phoneList')
 const router=new Router();
 
-router.get('/api/persons',(req,res)=>{
+router.get('/',(req,res)=>{
     if(contacts){
         res.json(contacts);
     }
@@ -21,7 +21,7 @@ router.get('/info',(req,res)=>{
     }
 })
 
-router.get('/api/persons/:id', (req,res)=>{
+router.get('/:id', (req,res)=>{
     const { id }=req.params;
     const person=contacts.find(item=>item.id===Number(id));
     if(contacts){
@@ -32,7 +32,7 @@ router.get('/api/persons/:id', (req,res)=>{
     }
 })
 
-router.delete('/api/persons/:id',(req,res)=>{
+router.delete('/:id',(req,res)=>{
     const {id}=req.params;
     const filtered=contacts.filter(item=>item.id!=Number(id))
     if(contacts){
@@ -43,7 +43,7 @@ router.delete('/api/persons/:id',(req,res)=>{
     }
 })
 
-router.post('/api/persons/',(req,res)=>{
+router.post('/',(req,res)=>{
     
     const newContact=req.body;
     
